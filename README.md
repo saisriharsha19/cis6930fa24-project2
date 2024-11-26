@@ -69,52 +69,53 @@ id    name
 #### 1. __init__(self)
 Initializes the Unredactor system by setting up:
 
-NLTK resources: Downloads required data for tokenization and part-of-speech tagging.
-Vectorizer: CountVectorizer to extract features from text.
-Classifier: A Logistic Regressor model for predicting names.
+1. NLTK resources: Downloads required data for tokenization and part-of-speech tagging.
+2. Vectorizer: CountVectorizer to extract features from text.
+3. Classifier: A Logistic Regressor model for predicting names.
 #### 2. extract_features(self, context)
 Generates feature representations of the provided context for training and prediction.
 Features include:
 
-Length of redacted text.
-Surrounding words and their part-of-speech (POS) tags.
-Sentence structure details (e.g., position of redaction, total length).
-N-grams (bigrams and trigrams) from surrounding words.
+1. Length of redacted text.
+2. Surrounding words and their part-of-speech (POS) tags.
+3. Sentence structure details (e.g., position of redaction, total length).
+4. N-grams (bigrams and trigrams) from surrounding words.
+
 This robust feature set helps the classifier understand redacted contexts effectively.
 #### 3. prepare_training_data(self, training_file)
 Prepares the model for prediction by training it with labeled data.
 
 Input: A TSV file with split, name, and context columns.
-Process:
-Extracts features from the training set.
-Vectorizes the features and fits the Naive Bayes classifier.
-Output: A trained model ready for predictions.
+##### Process:
+1. Extracts features from the training set.
+2. Vectorizes the features and fits the Naive Bayes classifier.
+3. Output: A trained model ready for predictions.
 #### 4. predict_names(self, validation_file)
 Predicts names for redacted contexts in a validation set.
 
 Input: A TSV file containing validation data.
-Process:
-Extracts and vectorizes features for the validation set.
-Predicts names using the trained classifier.
-Evaluates the model with precision, recall, and F1-score metrics.
-Output: Predicted names and performance metrics.
+##### Process:
+1. Extracts and vectorizes features for the validation set.
+2. Predicts names using the trained classifier.
+3. Evaluates the model with precision, recall, and F1-score metrics.
+4. Output: Predicted names and performance metrics.
 #### 5. generate_submission(self, test_file, output_file='submission.tsv')
 Generates predictions for a test dataset and saves the results to a file.
 
 Input:
-A test TSV file with id and context columns.
-An optional output file name.
-Process:
-Extracts and vectorizes features from the test dataset.
-Predicts names and creates a submission file with IDs and predicted names.
-Output: A TSV file containing predictions.
+1. A test TSV file with id and context columns.
+2. An optional output file name.
+##### Process:
+1. Extracts and vectorizes features from the test dataset.
+2. Predicts names and creates a submission file with IDs and predicted names.
+3. Output: A TSV file containing predictions.
 #### 6. main()
 The entry point of the program.
 Workflow:
 
-Trains the model using a provided training dataset (unredactor.tsv).
-Evaluates the model with predictions on a validation dataset.
-Generates predictions for the test dataset (test.tsv) and saves them to a submission file.
+1. Trains the model using a provided training dataset (unredactor.tsv).
+2. Evaluates the model with predictions on a validation dataset.
+3. Generates predictions for the test dataset (test.tsv) and saves them to a submission file.
 ### Test Functions
 #### Test File: tests/test_unredactor.py
 This file contains unit tests to verify the functionality of the Unredactor class. The tests use the unittest framework to ensure each method behaves as expected.
@@ -124,6 +125,7 @@ Purpose: Verifies the extract_features method generates correct feature represen
 Test Cases:
 
 Checks that features include expected elements like length, surrounding words, POS tags, and n-grams.
+
 Confirms handling of edge cases (e.g., no redacted text or minimal context).
 ```python 
     def test_extract_features():
@@ -134,6 +136,7 @@ Purpose: Ensures that training data preparation works as intended.
 Test Cases:
 
 Confirms the classifier is successfully trained on the input TSV file.
+
 Checks that vectorized features are correctly generated from the training set.
 ```python 
     def test_prepare_training_data():
@@ -144,6 +147,7 @@ Purpose: Validates the predict_names method's ability to make accurate predictio
 Test Cases:
 
 Ensures predictions match expected output for a sample validation dataset.
+
 Verifies precision, recall, and F1-score calculations for the predictions.
 ```python 
     def test_predict_names():
@@ -151,9 +155,11 @@ Verifies precision, recall, and F1-score calculations for the predictions.
 ```
 4. test_generate_submission()
 Purpose: Tests the generate_submission method to confirm correct output file generation.
+
 Test Cases:
 
 Checks the format and content of the generated submission file.
+
 Ensures the file includes the correct IDs and predicted names.
 ```python 
     def test_generate_submission():
@@ -164,6 +170,7 @@ Purpose: Simulates an end-to-end test of the entire Unredactor pipeline.
 Test Cases:
 
 Executes the full workflow: training, validation, and test prediction.
+
 Ensures the pipeline runs without errors and produces expected results.
 ```python 
     def test_pipeline_workflow()
@@ -175,25 +182,33 @@ Purpose: Verifies the end-to-end execution of the main() function.
 Test Cases:
 
 Ensures that the prepare_training_data, predict_names, and generate_submission methods are called in sequence.
+
 Validates the integration of individual components (e.g., feature extraction, training, prediction).
 2. test_output_files()
 Purpose: Confirms that output files are created correctly after running the pipeline.
+
 Test Cases:
 
 Verifies that the submission.tsv file is generated in the correct format.
+
 Checks that the file includes the appropriate columns (id and name) and the expected number of rows.
 3. test_logging_and_errors()
 Purpose: Ensures that errors are handled gracefully during the pipeline execution.
+
 Test Cases:
 
 Tests the behavior when input files are missing or improperly formatted.
+
 Confirms that meaningful error messages are logged.
+
 Ensures the program exits gracefully without crashing.
 4. test_integration_with_sample_data()
 Purpose: Runs the full pipeline with a set of sample input files to verify integration.
+
 Test Cases:
 
 Uses mock or small TSV files (e.g., sample_training.tsv, sample_validation.tsv, sample_test.tsv) to simulate the pipeline.
+
 Confirms that the final predictions align with the expected results based on the sample data.
 
 
