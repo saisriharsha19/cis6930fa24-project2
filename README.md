@@ -1,10 +1,10 @@
-# cis6930fa24-project2
+# Redaction Name Predictor
 
 # README
 
 # Name: Sai Sri Harsha Guddati
 ## Assignment Description
-In this project, we need to create a data pipeline to develop a system that predicts the names redacted in text contexts using machine learning. In the code, we have trained a model on a given dataset and it generates predictions for redacted names in a test dataset.
+In this project, I have created a data pipeline to develop a system that predicts the names redacted in text contexts using machine learning. In the project, I have trained a model on a given dataset and it generates predictions for redacted names in a test dataset.
 
 ### Steps
 To run the Unredactor tool, ensure your dataset files are correctly formatted and placed in the project directory.
