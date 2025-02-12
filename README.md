@@ -3,7 +3,7 @@
 # README
 
 # Name: Sai Sri Harsha Guddati
-## Assignment Description
+## Project Description
 In this project, I have created a data pipeline to develop a system that predicts the names redacted in text contexts using machine learning. In the project, I have trained a model on a given dataset and it generates predictions for redacted names in a test dataset.
 
 ### Steps
